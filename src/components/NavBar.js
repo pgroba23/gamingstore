@@ -1,3 +1,5 @@
+import { CardWidget } from './CardWidget';
+
 export const NavBar = () => {
   return (
     <header className="p-3 font-black font-mono text-2xl text-white bg-slate-800 grid grid-cols-1 sm:grid-cols-3">
@@ -27,6 +29,9 @@ export const NavBar = () => {
           />
         </form>
       </nav>
+      <div className="justify-self-center sm:justify-self-end">
+        <CardWidget />
+      </div>
     </header>
   );
 };
