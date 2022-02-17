@@ -1,4 +1,5 @@
 import React from 'react';
+import { ItemDetailContainer } from './ItemDetailContainer';
 import { ItemList } from './ItemList';
 
 export const ItemListContainer = ({ greeting }) => {
@@ -6,6 +7,7 @@ export const ItemListContainer = ({ greeting }) => {
     <>
       <h1 className="bg-lime-400 text-2xl p-2 m-2 text-center">{greeting}</h1>
       <ItemList />
+      <ItemDetailContainer />
     </>
   );
 };

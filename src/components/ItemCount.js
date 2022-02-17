@@ -8,7 +8,7 @@ export const ItemCount = ({ stock, initial = 1 }) => {
   };
 
   const handleRemove = () => {
-    count > 0 && setCount(count - 1);
+    count > 1 && setCount(count - 1);
   };
 
   return (
@@ -20,9 +20,7 @@ export const ItemCount = ({ stock, initial = 1 }) => {
         >
           -
         </button>
-        <span className="p-2 m-1 bg-zinc-200 text-lg rounded-sm">
-          Contador: {count}
-        </span>
+        <span className="p-2 m-1 bg-zinc-200 text-lg rounded-sm">{count}</span>
         <button
           className="py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-sm"
           onClick={handleAdd}
