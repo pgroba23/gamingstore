@@ -1,37 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { ItemDetail } from './ItemDetail';
 import { DualRing } from 'react-awesome-spinners';
+import { array } from '../common/getArray';
+import { useParams } from 'react-router-dom';
 
 export const ItemDetailContainer = () => {
   const [itemsDetail, setItemsDetail] = useState([]);
   const [detailLoading, setDetailLoading] = useState(true);
+  const { id } = useParams();
 
   useEffect(() => {
     const promesa = new Promise((res) => {
-      const array = [
-        {
-          id: 1,
-          title: 'Dauntless',
-          thumbnail: 'https://www.freetogame.com/g/1/thumbnail.jpg',
-          short_description:
-            'A free-to-play, co-op action RPG with gameplay similar to Monster Hunter.',
-          price: '$0',
-          genre: 'MMORPG',
-          platform: 'PC (Windows)',
-          publisher: 'Phoenix Labs',
-          developer: 'Phoenix Labs, Iron Galaxy',
-          release_date: '2019-05-21',
-        },
-      ];
-      res(array);
+      res(array.filter((element) => element.id === Number(id)));
     });
     setTimeout(() => {
       promesa.then((res) => {
         setItemsDetail(res);
         setDetailLoading(false);
       });
-    }, 2000);
-  }, []);
+    }, 1000);
+  }, [id]);
   const [detail] = itemsDetail;
 
   return (

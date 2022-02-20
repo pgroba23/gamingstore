@@ -1,15 +1,18 @@
-import { NavBar } from './components/NavBar';
-import { Main } from './components/Main';
 import { Footer } from './components/Footer';
+import { NavBar } from './components/NavBar';
+import { Home } from './components/Home';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <>
-      <NavBar />
-      <Main />
-      <Footer />
-    </>
+    <div className="grid grid-rows-auto h-screen mx-auto">
+      <BrowserRouter>
+        <NavBar />
+        <Home />
+        <Footer />
+      </BrowserRouter>
+    </div>
   );
 }
 
