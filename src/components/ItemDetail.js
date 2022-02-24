@@ -1,7 +1,15 @@
-import React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ItemCount } from './ItemCount';
 
 export const ItemDetail = ({ item }) => {
+  const [itemCountState, setItemCountState] = useState(0);
+  const navigate = useNavigate();
+
+  const onAdd = (quantityToAdd) => {
+    setItemCountState(quantityToAdd);
+  };
+
   return (
     <article className="w-fit rounded overflow-hidden shadow-lg p-4">
       <img
@@ -31,7 +39,22 @@ export const ItemDetail = ({ item }) => {
           Release Date: {item.release_date}
         </span>
       </div>
-      <ItemCount stock={5} initial={1} />
+      {itemCountState === 0 ? (
+        <ItemCount
+          stock={item.stock}
+          initial={item.stock === 0 ? item.stock : 1}
+          onAdd={onAdd}
+        />
+      ) : (
+        <div className="m-2 flex justify-center">
+          <button
+            className="py-2 px-10 bg-slate-300 hover:bg-slate-700 text-white font-bold rounded-sm"
+            onClick={() => navigate('/cart')}
+          >
+            Terminar compra
+          </button>
+        </div>
+      )}
     </article>
   );
 };

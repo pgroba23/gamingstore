@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ItemCount = ({ stock, initial = 1 }) => {
+export const ItemCount = ({ stock, initial = 1, onAdd }) => {
   const [count, setCount] = React.useState(initial);
 
   const handleAdd = () => {
@@ -29,7 +29,10 @@ export const ItemCount = ({ stock, initial = 1 }) => {
         </button>
       </div>
       <div className="m-2 text-center">
-        <button className="py-2 px-10 bg-slate-300 hover:bg-slate-700 text-white font-bold rounded-sm">
+        <button
+          className="py-2 px-10 bg-slate-300 hover:bg-slate-700 text-white font-bold rounded-sm"
+          onClick={() => onAdd(count)}
+        >
           Agregar al carrito
         </button>
       </div>
