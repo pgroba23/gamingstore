@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { CartContext } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { ItemCount } from './ItemCount';
 
@@ -8,7 +9,10 @@ export const ItemDetail = ({ item }) => {
 
   const onAdd = (quantityToAdd) => {
     setItemCountState(quantityToAdd);
+    addItem(item, quantityToAdd);
   };
+
+  const { addItem } = useContext(CartContext);
 
   return (
     <article className="w-fit rounded overflow-hidden shadow-lg p-4">
