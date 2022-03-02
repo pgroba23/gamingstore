@@ -2,7 +2,7 @@ import { Footer } from './components/Footer';
 import { NavBar } from './components/NavBar';
 import { Home } from './components/Home';
 import { BrowserRouter } from 'react-router-dom';
-import { CustomProvider } from './context/CustomProvider';
+import { CustomProvider } from './context/CartContext';
 
 import './index.css';
 
