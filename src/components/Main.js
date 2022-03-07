@@ -15,7 +15,7 @@ export const Main = () => {
         <Route path="/category/:id" element={<ItemListContainer />} />
         <Route path="/item/:id" element={<ItemDetailContainer />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="*" element={<NoMatch />} />
+        <Route path="*" element={<NoMatch title={'Ups! Wrong url =('} />} />
       </Routes>
     </main>
   );

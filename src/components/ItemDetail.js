@@ -12,7 +12,10 @@ export const ItemDetail = ({ item }) => {
     addItem(item, quantityToAdd);
   };
 
-  const { addItem } = useContext(CartContext);
+  const { addItem, cart } = useContext(CartContext);
+  const stock = cart.find((e) => e.item.id === item.id)
+    ? item.stock - cart.find((e) => e.item.id === item.id).quantity
+    : item.stock;
 
   return (
     <article className="w-fit rounded overflow-hidden shadow-lg p-4">
@@ -28,7 +31,7 @@ export const ItemDetail = ({ item }) => {
         {item.short_description}
       </h5>
       <div className="text-center mb-2">
-        <span className="p-1 m-1  text-md bg-green-200">{item.price}</span>
+        <span className="p-1 m-1  text-md bg-green-200">${item.price}</span>
       </div>
       <div className="text-center mb-2">
         <span className="p-1 m-1  text-sm">Genere: {item.genre}</span>
@@ -44,11 +47,18 @@ export const ItemDetail = ({ item }) => {
         </span>
       </div>
       {itemCountState === 0 ? (
-        <ItemCount
-          stock={item.stock}
-          initial={item.stock === 0 ? item.stock : 1}
-          onAdd={onAdd}
-        />
+        <div className="flex flex-col justify-center align-middle">
+          <ItemCount
+            stock={stock}
+            initial={stock === 0 ? stock : 1}
+            onAdd={onAdd}
+          />
+          {stock === 0 && (
+            <h1 className="text-center uppercase bg-black text-white">
+              No hay stock
+            </h1>
+          )}
+        </div>
       ) : (
         <div className="m-2 flex justify-center">
           <button

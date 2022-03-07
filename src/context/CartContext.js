@@ -19,7 +19,7 @@ export const CustomProvider = ({ children }) => {
     }
   };
 
-  const removeItem = (id) => cart.filter(({ item }) => item.id !== id);
+  const removeItem = (id) => setCart(cart.filter(({ item }) => item.id !== id));
 
   const isInCart = (id) => {
     return cart && cart.some(({ item }) => item.id === id) ? true : false;
