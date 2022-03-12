@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { array } from '../common/getArray';
 import { ItemList } from './ItemList';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../utils/firebase';
+import { itemCollection } from '../common/collections';
 
 export const ItemListContainer = ({ urldata }) => {
   const [items, setItems] = useState([]);
   const { id: categoryId } = useParams();
 
   useEffect(() => {
-    const promesa = new Promise((res) => {
-      res(
-        array.filter((element) =>
-          categoryId ? element.platform === categoryId : element === element
-        )
-      );
-    });
-    setTimeout(() => {
-      promesa.then((res) => {
-        setItems(res);
-      });
-    }, 1000);
+    const ejec = async () => {
+      //const itemCol = collection(db, itemCollection);
+      const q = categoryId
+        ? query(
+            collection(db, itemCollection),
+            where('platform', '==', categoryId)
+          )
+        : collection(db, itemCollection);
+
+      const itemSnapshot = await getDocs(q);
+      setItems(itemSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    };
+    ejec();
     return () => {
       setItems([]);
     };
