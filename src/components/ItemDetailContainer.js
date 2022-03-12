@@ -12,17 +12,7 @@ export const ItemDetailContainer = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    // const promesa = new Promise((res) => {
-    //   res(array.find((element) => element.id === Number(id)));
-    // });
-    // setTimeout(() => {
-    //   promesa.then((res) => {
-    //     setItemsDetail(res);
-    //     setDetailLoading(false);
-    //   });
-    // }, 1000);
     const ejec = async () => {
-      //const itemCol = collection(db, itemCollection);
       const q = query(
         collection(db, itemCollection),
         where('id', '==', Number(id))

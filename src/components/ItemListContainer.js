@@ -11,7 +11,6 @@ export const ItemListContainer = ({ urldata }) => {
 
   useEffect(() => {
     const ejec = async () => {
-      //const itemCol = collection(db, itemCollection);
       const q = categoryId
         ? query(
             collection(db, itemCollection),
