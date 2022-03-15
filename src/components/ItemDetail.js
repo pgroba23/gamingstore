@@ -2,20 +2,27 @@ import { useContext, useState } from 'react';
 import { CartContext } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { ItemCount } from './ItemCount';
+import { Toast } from '../common/swal';
 
 export const ItemDetail = ({ item }) => {
   const [itemCountState, setItemCountState] = useState(0);
   const navigate = useNavigate();
 
-  const onAdd = (quantityToAdd) => {
-    setItemCountState(quantityToAdd);
-    addItem(item, quantityToAdd);
-  };
-
   const { addItem, cart } = useContext(CartContext);
   const stock = cart.find((e) => e.item.id === item.id)
     ? item.stock - cart.find((e) => e.item.id === item.id).quantity
     : item.stock;
+
+  const onAdd = (quantityToAdd) => {
+    if (stock !== 0) {
+      setItemCountState(quantityToAdd);
+      addItem(item, quantityToAdd);
+      Toast.fire({
+        icon: 'success',
+        title: 'Item added',
+      });
+    }
+  };
 
   return (
     <article className="w-fit rounded overflow-hidden shadow-lg p-4">

@@ -14,6 +14,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { db } from '../utils/firebase';
+import { Toast } from '../common/swal';
 import { itemCollection, orderCollection } from '../common/collections';
 
 export const Cart = () => {
@@ -37,6 +38,7 @@ export const Cart = () => {
           ...element.item,
           stock: element.item.stock - element.quantity,
         });
+        clear();
       } catch (error) {
         console.error('Error: ', error);
       }
@@ -58,9 +60,16 @@ export const Cart = () => {
     };
     try {
       const docRef = await addDoc(orders, newOrder);
-      console.log('New id: ', docRef.id);
+      // console.log('New id: ', docRef.id);
+      Toast.fire({
+        icon: 'success',
+        title: `Order complete. ID: ${docRef.id}`,
+      });
     } catch (error) {
-      console.error('Error: ', error);
+      Toast.fire({
+        icon: 'error',
+        title: `Error: ${error}`,
+      });
     }
   };
 
