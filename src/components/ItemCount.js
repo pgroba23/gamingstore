@@ -11,6 +11,11 @@ export const ItemCount = ({ stock, initial = 1, onAdd }) => {
     count > 1 && setCount(count - 1);
   };
 
+  const handleExternalAdd = () => {
+    onAdd(count);
+    setCount(initial);
+  };
+
   return (
     <>
       <div className="mx-2 mt-8 mb-4  text-center">
@@ -31,7 +36,7 @@ export const ItemCount = ({ stock, initial = 1, onAdd }) => {
       <div className="m-2 text-center">
         <button
           className="py-2 px-10 bg-slate-300 hover:bg-slate-700 text-white font-bold rounded-sm"
-          onClick={() => onAdd(count)}
+          onClick={handleExternalAdd}
         >
           Agregar al carrito
         </button>

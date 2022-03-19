@@ -5,7 +5,7 @@ import { ItemCount } from './ItemCount';
 import { Toast } from '../common/swal';
 
 export const ItemDetail = ({ item }) => {
-  const [itemCountState, setItemCountState] = useState(0);
+  const [, setItemCountState] = useState(0);
   const navigate = useNavigate();
 
   const { addItem, cart } = useContext(CartContext);
@@ -53,29 +53,34 @@ export const ItemDetail = ({ item }) => {
           Release Date: {item.release_date}
         </span>
       </div>
-      {itemCountState === 0 ? (
-        <div className="flex flex-col justify-center align-middle">
+
+      <div className="flex flex-col justify-center align-middle">
+        {stock !== 0 ? (
           <ItemCount
             stock={stock}
             initial={stock === 0 ? stock : 1}
             onAdd={onAdd}
           />
-          {stock === 0 && (
-            <h1 className="text-center uppercase bg-black text-white">
-              No hay stock
-            </h1>
-          )}
-        </div>
-      ) : (
-        <div className="m-2 flex justify-center">
-          <button
-            className="py-2 px-10 bg-slate-300 hover:bg-slate-700 text-white font-bold rounded-sm"
-            onClick={() => navigate('/cart')}
-          >
-            Terminar compra
-          </button>
-        </div>
-      )}
+        ) : (
+          <h1 className="text-center uppercase bg-black text-white">
+            Without stock
+          </h1>
+        )}
+      </div>
+      <div className="m-2 flex flex-col justify-center sm:flex-row">
+        <button
+          className="py-2 px-10 bg-slate-300 hover:bg-slate-700 text-white font-bold rounded-sm"
+          onClick={() => navigate('/cart')}
+        >
+          Cart
+        </button>
+        <button
+          className="py-2 px-10 mt-2 sm:ml-2 sm:mt-0 bg-slate-300 hover:bg-slate-700 text-white font-bold rounded-sm"
+          onClick={() => navigate('/')}
+        >
+          Continue Shopping
+        </button>
+      </div>
     </article>
   );
 };

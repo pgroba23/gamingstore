@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ItemList } from './ItemList';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import {
+  collection,
+  endAt,
+  getDocs,
+  orderBy,
+  query,
+  startAt,
+  where,
+} from 'firebase/firestore';
 import { db } from '../utils/firebase';
 import { itemCollection } from '../common/collections';
 
@@ -17,7 +25,6 @@ export const ItemListContainer = ({ urldata }) => {
             where('platform', '==', categoryId)
           )
         : collection(db, itemCollection);
-
       const itemSnapshot = await getDocs(q);
       setItems(itemSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     };
