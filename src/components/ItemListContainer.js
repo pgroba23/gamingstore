@@ -1,20 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ItemList } from './ItemList';
-import {
-  collection,
-  endAt,
-  getDocs,
-  orderBy,
-  query,
-  startAt,
-  where,
-} from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../utils/firebase';
 import { itemCollection } from '../common/collections';
 
-export const ItemListContainer = ({ urldata }) => {
+export const ItemListContainer = ({ search }) => {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { id: categoryId } = useParams();
 
   useEffect(() => {
@@ -26,17 +19,25 @@ export const ItemListContainer = ({ urldata }) => {
           )
         : collection(db, itemCollection);
       const itemSnapshot = await getDocs(q);
-      setItems(itemSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      const data = itemSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setItems(
+        search ? data.filter((element) => element.title.includes(search)) : data
+      );
+      setLoading(false);
     };
     ejec();
     return () => {
       setItems([]);
+      setLoading(true);
     };
-  }, [categoryId]);
+  }, [categoryId, search]);
 
   return (
     <>
-      <ItemList items={items} />
+      <ItemList items={items} loading={loading} />
     </>
   );
 };

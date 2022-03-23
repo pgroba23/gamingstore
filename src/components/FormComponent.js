@@ -1,4 +1,11 @@
+import { useState } from 'react';
+
 export const FormComponent = ({ clear, total, handleSubmit }) => {
+  const [name, setName] = useState('');
+
+  const handleTextOnly = ({ target }) => {
+    setName(target.value.replace(/[^a-zA-Z_]/g, ''));
+  };
   return (
     <div className="mt-2 max-w-md">
       <form onSubmit={handleSubmit}>
@@ -9,6 +16,8 @@ export const FormComponent = ({ clear, total, handleSubmit }) => {
               type="text"
               name="name"
               id="name"
+              onChange={handleTextOnly}
+              value={name}
               className="
                     mt-1
                     block
